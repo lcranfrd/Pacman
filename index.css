@@ -1,0 +1,82 @@
+* {box-sizing: border-box;}
+
+html, body {
+  margin: 0 auto;
+  padding: 10px;
+}
+
+h1 {
+  text-align: center; 
+}
+
+.grid {
+  margin: auto;
+  padding: 5px;
+  width: 75vh;
+  height: 75vh;
+  display: flex;
+  flex-wrap: wrap;
+  border: 3px solid magenta;
+}
+
+.grid div {
+  height: 3.5714%;
+  width: 3.5714%;
+  /* border: 1px solid mediumturquoise; */
+}
+
+.pac-dot {
+  background-color: green;
+  border: 7px solid white;
+  /* box-sizing: border-box; */
+}
+.wall {
+  background-color: blue;
+}
+.power-pellet {
+  background-image: url('../images/Power_Pellet_Image.png');
+  background-position: center;
+  background-size: cover;
+  /* border-radius: 15px; */
+}
+
+.pac-man {
+  background-image: url('../images/pacman.png');
+  background-position: center;
+  background-size: cover;
+  border: none;
+}
+
+.blinky {
+  background-image: url('../images/blinky.png');
+  background-position: center;
+  background-size: cover;
+  border: none;
+}
+
+.pinky {
+background-image: url('../images/pinky.png');
+  background-position: center;
+  background-size: cover;  border: none;
+}
+
+.inky {
+  background-image: url('../images/inky.png');
+  background-position: center;
+  background-size: cover;
+  border: none;
+}
+
+.clyde {
+  background-image: url('../images/clyde.png');
+  background-position: center;
+  background-size: cover;
+  border: none;
+}
+
+.scared-ghost {
+  background-image: url('../images/scared-ghost.png');
+  background-position: center;
+  background-size: cover;
+  border: none;
+}
