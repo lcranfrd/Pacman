@@ -10,7 +10,7 @@ const powerPelletScore = 10;
 const ghostScore = 100;
 const scoreToWin = 1000;
 let powerPellet = false;
-let pacManCurrentIndex = 490;
+let pacManCurrentIndex = 490;//490
 
 const layoutItems = [
   'pac-dot',
@@ -130,6 +130,8 @@ const checkPacManMove = (moveToIndex, keyCode) => {
   return obsticle.includes(true);
 }
 
+
+
 /******Remove or Add Pacman*/
 function removePacMan() {
   if(pacManCurrentIndex === 392) {
@@ -144,6 +146,7 @@ function removePacMan() {
   squares[pacManCurrentIndex].classList.remove('pac-man');
 }
 
+/***** Add PacMan to new location while transform look direction in travel */
 function addPacMan(degs) {
  squares[pacManCurrentIndex].classList.add('pac-man');
  const pacManObj = document.querySelector('.pac-man');
@@ -202,7 +205,9 @@ class Ghost {
     this.currentIndex = startIndex;
     this.isScared = false;
     this.timerId = NaN;
-    this.ghostLair = true;
+    this.inGhostLair = true;
+    this.X = 0;
+    this.Y = 0;
   }
 }
 
@@ -224,37 +229,65 @@ ghosts.forEach( (ghost) => moveGhost(ghost));
 
 function moveGhost(ghost) {
   const directions = [-1, +1, -gridHeight, +gridHeight];
-  let direction = directions[Math.floor(Math.random() * directions.length)];
+  const newDirection = () => directions[Math.floor(Math.random() * directions.length)];
+  let direction = newDirection();
 
-  ghost.timerId = setInterval( () => {
-    const ghostObsticle = 
-      !squares[ghost.currentIndex + direction].classList.contains('wall') &&
-      !squares[ghost.currentIndex + direction].classList.contains('ghost') &&
-      !(ghost.gostLair && squares[ghost.currentIndex + direction].classList.contains('ghost-lair'));
+  function goGhost() {
+    function getCoOrds(pos) {
+      return [pos % gridWidth, Math.floor(pos / gridHeight)];
+    }
+      [ghost.X, ghost.Y] = getCoOrds(ghost.currentIndex);
+      const [newGhostX, newGhostY] = getCoOrds(ghost.currentIndex + direction);
+      const [pacX, pacY] = getCoOrds(pacManCurrentIndex);
+      
+      function isXCloser() {
+        return Math.abs((newGhostX - pacX)) < Math.abs((ghost.X - pacX))? true: false;
+      }
+      function isYCloser() {
+        return Math.abs((newGhostY - pacY)) < Math.abs((ghost.Y - pacY))? true: false;
+      }
+      
+      const isGhostObsticle = 
+        squares[ghost.currentIndex + direction].classList.contains('wall') ||
+        squares[ghost.currentIndex + direction].classList.contains('ghost') ||
+        (!ghost.inGhostLair && squares[ghost.currentIndex + direction].classList.contains('ghost-lair'));
+      
+      if(isGhostObsticle) {
+        direction = newDirection();
+      } else {
+          squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
+          if(ghost.inGhostLair) {
+            ghost.currentIndex += direction;
+            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
+          } else if((isXCloser() || isYCloser())) {
+                    ghost.currentIndex += direction;
+                    squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
+                  } else {
+                      squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
+                      direction = newDirection();
+                  }
+          // squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
+    }
+
+      if(!squares[ghost.currentIndex].classList.contains('ghost-lair')) {
+        ghost.inGhostLair = false;
+      }
+ // Scarred Ghost // 
+      if(ghost.isScared) {
+        squares[ghost.currentIndex].classList.add('scared-ghost');
+      }
     
-    if(ghostObsticle) {
-      squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
-      ghost.currentIndex += direction;
-      squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
-    } else {
-        direction = directions[Math.floor(Math.random() * directions.length)];
-    }
-    if(!squares[ghost.currentIndex].classList.contains('ghost-lair')) {
-      ghost.ghostLair = false;
-    }
+      if(ghost.isScared && (pacManCurrentIndex === ghost.currentIndex)) {
+        squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
+        ghost.currentIndex = ghost.startIndex;
+        ghost.inGhostLair = true;
+        totalScore += ghostScore;
+        squares[ghost.currentIndex].classList.add(ghost.classname, 'ghost')
+      }
+      gameLooseCheck();
+  }
 
-    if(ghost.isScared) {
-      squares[ghost.currentIndex].classList.add('scared-ghost');
-    }
-  
-    if(ghost.isScared && (pacManCurrentIndex === ghost.currentIndex)) {
-      squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
-      ghost.currentIndex = ghost.startIndex;
-      totalScore += ghostScore;
-      squares[ghost.currentIndex].classList.add(ghost.classname, 'ghost')
-    }
-    gameLooseCheck();
-  }, ghost.speed);
+  ghost.timerId = setInterval(goGhost , ghost.speed);
 }
 
 function gameLooseCheck() {
