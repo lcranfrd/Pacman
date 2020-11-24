@@ -3,10 +3,16 @@
 html, body {
   margin: 0 auto;
   padding: 10px;
+  background-color: black;
 }
 
-h1 {
-  text-align: center; 
+h1, h3 {
+  text-align: center;
+  color: #555;
+}
+
+div {
+  background-color: #222;
 }
 
 .grid {
@@ -27,7 +33,7 @@ h1 {
 
 .pac-dot {
   background-color: green;
-  border: 7px solid white;
+  border: 7px solid #222;
   /* box-sizing: border-box; */
 }
 .wall {
@@ -68,7 +74,7 @@ background-image: url('../images/pinky.png');
 }
 
 .clyde {
-  background-image: url('../images/clyde.png');
+  background-image: url('../images/NicePng_pacman-png_2041013.png');
   background-position: center;
   background-size: cover;
   border: none;
