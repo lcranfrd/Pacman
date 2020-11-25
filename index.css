@@ -1,3 +1,8 @@
+:root {
+--btn-width: 25px;
+--btn-height: 35px;
+}
+
 * {box-sizing: border-box;}
 
 html, body {
@@ -56,27 +61,30 @@ div {
 .blinky {
   background-image: url('../images/Blinky-Trans.png');
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   border: none;
 }
 
 .pinky {
 background-image: url('../images/Pinky-Trans.png');
   background-position: center;
-  background-size: cover;  border: none;
+  background-size: contain;
+  border: none;
 }
 
 .inky {
   background-image: url('../images/Inky-Trans.png');
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   border: none;
 }
 
 .clyde {
   background-image: url('../images/Clyde-Trans.png');
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   border: none;
 }
 
@@ -85,4 +93,67 @@ background-image: url('../images/Pinky-Trans.png');
   background-position: center;
   background-size: cover;
   border: none;
+}
+
+/* BUTTONS */
+.btn-holder {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  padding: 5px;
+}
+
+.space {
+  width: 60px;
+}
+/* .middle {
+  margin: 50px 0;
+} */
+
+.circle {
+  border: solid 8px #888;
+  border-radius: 100%;
+}
+
+.btn-left {
+  height: 0;
+  width: 0;
+  border-top: solid transparent var(--btn-width);
+  border-bottom: solid transparent var(--btn-width);
+  border-right: solid #555 var(--btn-height);
+  background-color: #888;
+}
+
+.btn-up {
+  height: 0;
+  width: 0;
+  border-left: solid transparent var(--btn-width);
+  border-right: solid transparent var(--btn-width);
+  border-bottom: solid #555 var(--btn-height);
+  background-color: #888;
+}
+
+.btn-right {
+  height: 0;
+  width: 0;
+  border-top: solid transparent var(--btn-width);
+  border-bottom: solid transparent var(--btn-width);
+  border-left: solid #555 var(--btn-height);
+  background-color: #888;
+}
+
+.btn-down {
+  height: 0;
+  width: 0;
+  border-left: solid transparent var(--btn-width);
+  border-right: solid transparent var(--btn-width);
+  border-top: solid #555 var(--btn-height);
+  background-color: #888;
 }
