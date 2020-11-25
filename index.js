@@ -161,7 +161,7 @@ function control(event) {
           removePacMan();
           pacManCurrentIndex += 1;
           updateScore(pacManCurrentIndex);
-          addPacMan(180);
+          addPacMan(0);
         }
       break;
     case 38:
@@ -169,7 +169,7 @@ function control(event) {
         removePacMan();
         pacManCurrentIndex -= gridWidth;
         updateScore(pacManCurrentIndex);
-        addPacMan(90);
+        addPacMan(270);
       }
       break;
     case 37:
@@ -177,7 +177,7 @@ function control(event) {
         removePacMan();
         pacManCurrentIndex -= 1;
         updateScore(pacManCurrentIndex);
-        addPacMan(0);
+        addPacMan(180);
       }
       break;
     case 40:
@@ -185,7 +185,7 @@ function control(event) {
         removePacMan();
         pacManCurrentIndex += gridWidth;
         updateScore(pacManCurrentIndex);
-        addPacMan(270);
+        addPacMan(90);
       }
       break;
     default: break;
@@ -206,82 +206,77 @@ class Ghost {
     this.isScared = false;
     this.timerId = NaN;
     this.inGhostLair = true;
-    this.X = 0;
-    this.Y = 0;
   }
 }
 
 const ghosts = [
-  new Ghost('blinky',348, 250),
-  new Ghost('pinky', 376, 400),
-  new Ghost('inky', 351, 300),
-  new Ghost('clyde', 379, 500)
+  new Ghost('blinky',348, 350),
+  new Ghost('pinky', 376, 500),
+  new Ghost('inky', 351, 400),
+  new Ghost('clyde', 379, 600)
 ]
 
 /*****Create Ghosts */
 ghosts.forEach( (ghost) => {
-  squares[ghost.startIndex].classList.add(ghost.className);
-  squares[ghost.startIndex].classList.add('ghost');
+  squares[ghost.startIndex].classList.add(ghost.className, 'ghost');
 });
 
 /*****Make the Ghosts Move */
 ghosts.forEach( (ghost) => moveGhost(ghost));
 
 function moveGhost(ghost) {
-  // const newDirection = () => directions[Math.floor(Math.random() * directions.length)];
-  // let direction = newDirection÷();
-  
   function goGhost() {
-    function ghostBestMove(){
-    const directions = [-1, +1, -gridHeight, +gridHeight];
-    const getCoOrds= (pos) => [pos % gridWidth, Math.floor(pos / gridHeight)];
-/***Ghost Logic */
-  const isGhostObsticleTest = (v) => 
-    squares[ghost.currentIndex + v].classList.contains('wall') ||
-    squares[ghost.currentIndex + v].classList.contains('ghost') ||
-    (!ghost.inGhostLair && squares[ghost.currentIndex + v].classList.contains('ghost-lair'));
-  const nonObstDir = directions.filter((v) => isGhostObsticleTest(v) === false);
-  if (nonObstDir.length === 0) return ghost.currentIndex;
-  const nonObstPos = nonObstDir.map((v) => v + ghost.currentIndex);
-  const chaseVector = nonObstPos.map((v) => 
-    [v, Math.sqrt((Math.abs(getCoOrds(v)[0] - getCoOrds(pacManCurrentIndex)[0])**2)
-      + Math.abs((getCoOrds(v)[1] - getCoOrds(pacManCurrentIndex)[1])**2))
-    ]).sort((a,b)=> a[1]-b[1]);
-  const randomVector = () => chaseVector[Math.floor(Math.random() * chaseVector.length)];
-  // console.log(chaseVector);
-  // console.log(randomVector());
-  if (ghost.inGhostLair) return randomVector()[0];
-  if (ghost.isScared) return chaseVector[chaseVector.length-1][0];
-  else return chaseVector[0][0];
-  }
-/*****End Ghost Logic */
 
-  squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
-  ghost.currentIndex = ghostBestMove();
-  // console.log(ghost.currentIndex);
-  // ghost.currentIndex = (ghost.inGhostLair)? randomVector()[0]
-  //   :(ghost.isScared)? chaseVector[length-1][0]
-  //     :chaseVector[0][0];
-  squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
+    /***Ghost Move Engine */
+    function ghostBestMove() {
+      const directions = [-1, +1, -gridHeight, +gridHeight];
+      const getCoOrds= (pos) => [pos % gridWidth, Math.floor(pos / gridHeight)];
+      const isGhostObsticle = (v) => 
+        squares[ghost.currentIndex + v].classList.contains('wall') ||
+        squares[ghost.currentIndex + v].classList.contains('ghost') ||
+        (!ghost.inGhostLair && squares[ghost.currentIndex + v].classList.contains('ghost-lair'));
+      const clearMoves = directions.filter((v) => isGhostObsticle(v) === false);
+      if (clearMoves.length === 0) return ghost.currentIndex;
+      const nonObstPos = clearMoves.map((v) => v + ghost.currentIndex);
+      const chaseVector = nonObstPos.map((v) => 
+        [v, Math.sqrt((Math.abs(getCoOrds(v)[0] - getCoOrds(pacManCurrentIndex)[0])**2)
+          + Math.abs((getCoOrds(v)[1] - getCoOrds(pacManCurrentIndex)[1])**2))
+        ]).sort((a,b)=> a[1]-b[1]);
+      const randomVector = () => chaseVector[Math.floor(Math.random() * chaseVector.length)];
+      if (ghost.inGhostLair) return randomVector()[0];
+      if (ghost.isScared) return chaseVector[chaseVector.length-1][0];
+      else return chaseVector[0][0];
+    }
+    /*****End Move Ghost Engine */
 
-/***** If Ghost is in Ghost Lair it will randomly generate next move util out of Ghost Lair */
-  ghost.inGhostLair = (!squares[ghost.currentIndex].classList.contains('ghost-lair'))?false: true;
-/***** If outside of Ghost Lair it will chase PacMan */
-      
- // Scarred Ghost // 
-      if(ghost.isScared) {
-        squares[ghost.currentIndex].classList.add('scared-ghost');
-      }
+    checkGhostEaten();
+    squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
+    ghost.currentIndex = ghostBestMove();
+    squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
+  /***** If Ghost is in Ghost Lair it will randomly generate next move util out of Ghost Lair */
+    ghost.inGhostLair = (!squares[ghost.currentIndex].classList.contains('ghost-lair'))?false: true;
+  /***** If outside of Ghost Lair it will chase PacMan */
+        
+  // Scarred Ghost // 
+    if(ghost.isScared) {
+      squares[ghost.currentIndex].classList.add('scared-ghost');
+    }
+    gameLooseCheck();
 
-/*****If PacMan Eats Scared Ghost */
-      if(ghost.isScared && (pacManCurrentIndex === ghost.currentIndex)) {
+    function checkGhostEaten() {
+      if(pacManCurrentIndex === ghost.currentIndex && ghost.isScarred
+          // squares[pacManCurrentIndex].classList.contains('ghost') &&
+          // squares[pacManCurrentIndex].classList.contains('scared-ghost')
+        ) {
+        console.log('eatme fired');
         squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
         ghost.currentIndex = ghost.startIndex;
         ghost.inGhostLair = true;
         totalScore += ghostScore;
-        squares[ghost.currentIndex].classList.add(ghost.classname, 'ghost')
+        squares[ghost.currentIndex].classList.add(ghost.classname, 'ghost');
+        return
       }
-      gameLooseCheck();
+    }
   }
 
   ghost.timerId = setInterval(goGhost , ghost.speed);

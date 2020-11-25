@@ -47,14 +47,14 @@ div {
 }
 
 .pac-man {
-  background-image: url('../images/pacman.png');
+  background-image: url('../images/PacMan-Trans.png');
   background-position: center;
   background-size: cover;
   border: none;
 }
 
 .blinky {
-  background-image: url('../images/blinky.png');
+  background-image: url('../images/Blinky-Trans.png');
   background-position: center;
   background-size: cover;
   border: none;
@@ -67,7 +67,8 @@ background-image: url('../images/pinky.png');
 }
 
 .inky {
-  background-image: url('../images/inky.png');
+  background-image: url('../images/Inky-Trans.png');
+  .png');
   background-position: center;
   background-size: cover;
   border: none;
