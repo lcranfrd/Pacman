@@ -228,71 +228,52 @@ ghosts.forEach( (ghost) => {
 ghosts.forEach( (ghost) => moveGhost(ghost));
 
 function moveGhost(ghost) {
-  const directions = [-1, +1, -gridHeight, +gridHeight];
-  const newDirection = () => directions[Math.floor(Math.random() * directions.length)];
-  let direction = newDirection();
-
+  // const newDirection = () => directions[Math.floor(Math.random() * directions.length)];
+  // let direction = newDirection÷();
+  
   function goGhost() {
+    function ghostBestMove(){
+    const directions = [-1, +1, -gridHeight, +gridHeight];
     const getCoOrds= (pos) => [pos % gridWidth, Math.floor(pos / gridHeight)];
-    // [ghost.X, ghost.Y] = getCoOrds(ghost.currentIndex);
-    // const [newGhostX, newGhostY] = getCoOrds(ghost.currentIndex + direction);
-    // const [pacX, pacY] = getCoOrds(pacManCurrentIndex);
-    // const isXCloser = () => Math.abs((newGhostX - pacX)) < Math.abs((ghost.X - pacX))? true:false;
-    // const isYCloser = () => Math.abs((newGhostY - pacY)) < Math.abs((ghost.Y - pacY))? true:false; 
+/***Ghost Logic */
+  const isGhostObsticleTest = (v) => 
+    squares[ghost.currentIndex + v].classList.contains('wall') ||
+    squares[ghost.currentIndex + v].classList.contains('ghost') ||
+    (!ghost.inGhostLair && squares[ghost.currentIndex + v].classList.contains('ghost-lair'));
+  const nonObstDir = directions.filter((v) => isGhostObsticleTest(v) === false);
+  if (nonObstDir.length === 0) return ghost.currentIndex;
+  const nonObstPos = nonObstDir.map((v) => v + ghost.currentIndex);
+  const chaseVector = nonObstPos.map((v) => 
+    [v, Math.sqrt((Math.abs(getCoOrds(v)[0] - getCoOrds(pacManCurrentIndex)[0])**2)
+      + Math.abs((getCoOrds(v)[1] - getCoOrds(pacManCurrentIndex)[1])**2))
+    ]).sort((a,b)=> a[1]-b[1]);
+  const randomVector = () => chaseVector[Math.floor(Math.random() * chaseVector.length)];
+  // console.log(chaseVector);
+  // console.log(randomVector());
+  if (ghost.inGhostLair) return randomVector()[0];
+  if (ghost.isScared) return chaseVector[chaseVector.length-1][0];
+  else return chaseVector[0][0];
+  }
+/*****End Ghost Logic */
 
-    // const isGhostObsticle = 
-    //   squares[ghost.currentIndex + direction].classList.contains('wall') ||
-    //   squares[ghost.currentIndex + direction].classList.contains('ghost') ||
-    //   (!ghost.inGhostLair && squares[ghost.currentIndex + direction].classList.contains('ghost-lair'));
-
-
-
-/***Replace Test */
-const isGhostObsticleTest = (v) => 
-  squares[ghost.currentIndex + v].classList.contains('wall') ||
-  squares[ghost.currentIndex + v].classList.contains('ghost') ||
-  (!ghost.inGhostLair && squares[ghost.currentIndex + v].classList.contains('ghost-lair'));
-
-const nonObstDir = directions.filter((v) => isGhostObsticleTest(v) === false);
-const nonObstPos = nonObstDir.map((v) => v + ghost.currentIndex);
-const chaseVector = nonObstPos.map((v) => 
-  [v, Math.sqrt((Math.abs(getCoOrds(v)[0] - getCoOrds(pacManCurrentIndex)[0])**2)
-     + Math.abs((getCoOrds(v)[1] - getCoOrds(pacManCurrentIndex)[1])**2))
-  ]).sort((a,b)=> a[1]-b[1]);
-const randomVector = () => chaseVector[Math.floor(Math.random() * chaseVector.length)];
-/*****Replace Test */
-squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
-ghost.currentIndex = (ghost.inGhostLair)? randomVector()[0]: chaseVector[0][0];
+  squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
+  ghost.currentIndex = ghostBestMove();
+  // console.log(ghost.currentIndex);
+  // ghost.currentIndex = (ghost.inGhostLair)? randomVector()[0]
+  //   :(ghost.isScared)? chaseVector[length-1][0]
+  //     :chaseVector[0][0];
   squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
 
-
-
-
-      // if(isGhostObsticle) {
-      //   direction = newDirection();
-      // } else {
-      //   squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
-      //   if(ghost.inGhostLair) {
-      //     ghost.currentIndex = randomVector()[0];
-      //     squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
-      //   } else
-      //     if((isXCloser() || isYCloser())) {
-      //       ghost.currentIndex = chaseVector[0][0];
-      //       squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
-      //     } else {
-      //         squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
-      //         direction = newDirection();
-      //     }
-      //   }
 /***** If Ghost is in Ghost Lair it will randomly generate next move util out of Ghost Lair */
-ghost.inGhostLair = (!squares[ghost.currentIndex].classList.contains('ghost-lair'))?false: true;
+  ghost.inGhostLair = (!squares[ghost.currentIndex].classList.contains('ghost-lair'))?false: true;
 /***** If outside of Ghost Lair it will chase PacMan */
       
  // Scarred Ghost // 
       if(ghost.isScared) {
         squares[ghost.currentIndex].classList.add('scared-ghost');
       }
-    
+
+/*****If PacMan Eats Scared Ghost */
       if(ghost.isScared && (pacManCurrentIndex === ghost.currentIndex)) {
         squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
         ghost.currentIndex = ghost.startIndex;
