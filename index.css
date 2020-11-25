@@ -47,7 +47,7 @@ div {
 }
 
 .pac-man {
-  background-image: url('../images/PacMan-Trans.png');
+  background-image: url('../images/PacMan-Trans-2.png');
   background-position: center;
   background-size: cover;
   border: none;
@@ -61,7 +61,7 @@ div {
 }
 
 .pinky {
-background-image: url('../images/pinky.png');
+background-image: url('../images/Pinky-Trans.png');
   background-position: center;
   background-size: cover;  border: none;
 }
@@ -75,7 +75,7 @@ background-image: url('../images/pinky.png');
 }
 
 .clyde {
-  background-image: url('../images/NicePng_pacman-png_2041013.png');
+  background-image: url('../images/Clyde-Trans.png');
   background-position: center;
   background-size: cover;
   border: none;

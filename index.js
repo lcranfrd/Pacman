@@ -264,11 +264,10 @@ function moveGhost(ghost) {
     gameLooseCheck();
 
     function checkGhostEaten() {
-      if(pacManCurrentIndex === ghost.currentIndex && ghost.isScarred
-          // squares[pacManCurrentIndex].classList.contains('ghost') &&
-          // squares[pacManCurrentIndex].classList.contains('scared-ghost')
+      if(
+          squares[pacManCurrentIndex].classList.contains('ghost') &&
+          squares[pacManCurrentIndex].classList.contains('scared-ghost')
         ) {
-        console.log('eatme fired');
         squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
         ghost.currentIndex = ghost.startIndex;
         ghost.inGhostLair = true;
