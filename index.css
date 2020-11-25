@@ -1,6 +1,6 @@
 :root {
---btn-width: 25px;
---btn-height: 35px;
+--btn-width: 1vh;
+--btn-height: 2vh;
 }
 
 * {box-sizing: border-box;}
@@ -98,6 +98,8 @@ background-image: url('../images/Pinky-Trans.png');
 /* BUTTONS */
 .btn-holder {
   margin: 0 auto;
+  height: 10vh;
+  width: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,14 +113,14 @@ background-image: url('../images/Pinky-Trans.png');
 }
 
 .space {
-  width: 60px;
+  width: 2vh;
 }
 /* .middle {
   margin: 50px 0;
 } */
 
 .circle {
-  border: solid 8px #888;
+  border: solid 5px #888;
   border-radius: 100%;
 }
 
