@@ -103,17 +103,30 @@ background-image: url('../images/Pinky-Trans.png');
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: black;
 }
 
 .row {
   display: flex;
   flex-direction: row;
   align-content: center;
-  padding: 5px;
+  background-color: black;
 }
+
+.top {
+  padding: 5px 0 0 0;
+}
+.middle {
+  padding: 5px 0 0 0;
+}
+.bottom {
+  padding: 5px 0 0 0;
+}
+
 
 .space {
   width: 2vh;
+  background-color: black;
 }
 /* .middle {
   margin: 50px 0;
