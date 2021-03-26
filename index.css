@@ -11,9 +11,9 @@ html, body {
   background-color: black;
 }
 
-h1, h3 {
+h1, h2 {
   text-align: center;
-  color: #555;
+  color: #aaa;
 }
 
 div {
@@ -98,8 +98,7 @@ background-image: url('../images/Pinky-Trans.png');
 /* BUTTONS */
 .btn-holder {
   margin: 0 auto;
-  height: 10vh;
-  width: 20vh;
+  padding: 10 10;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,65 +109,64 @@ background-image: url('../images/Pinky-Trans.png');
   display: flex;
   flex-direction: row;
   align-content: center;
-  background-color: black;
+
 }
 
 .top {
-  padding: 5px 0 0 0;
+  /* padding: 5px 0 0 0; */
 }
 .middle {
-  padding: 5px 0 0 0;
+
 }
 .bottom {
-  padding: 5px 0 0 0;
+  /* padding: 5px 0 0 0; */
 }
 
 
 .space {
-  width: 2vh;
+  width: 5vh;
   background-color: black;
 }
-/* .middle {
-  margin: 50px 0;
-} */
-
+.space.middle {
+  /* width: 2vh; */
+}
 .circle {
-  border: solid 5px #888;
-  border-radius: 100%;
+  /* border: solid 5px #888;
+  border-radius: 100%; */
 }
 
 .btn-left {
-  height: 0;
+  /* height: 0;
   width: 0;
   border-top: solid transparent var(--btn-width);
   border-bottom: solid transparent var(--btn-width);
   border-right: solid #555 var(--btn-height);
-  background-color: #888;
+  background-color: #888; */
 }
 
 .btn-up {
-  height: 0;
+  /* height: 0;
   width: 0;
   border-left: solid transparent var(--btn-width);
   border-right: solid transparent var(--btn-width);
   border-bottom: solid #555 var(--btn-height);
-  background-color: #888;
+  background-color: #888; */
 }
 
 .btn-right {
-  height: 0;
-  width: 0;
-  border-top: solid transparent var(--btn-width);
-  border-bottom: solid transparent var(--btn-width);
-  border-left: solid #555 var(--btn-height);
-  background-color: #888;
+    /* height: 0;
+    width: 0;
+    border-top: solid transparent var(--btn-width);
+    border-bottom: solid transparent var(--btn-width);
+    border-left: solid #555 var(--btn-height);
+    background-color: #888; */
 }
 
 .btn-down {
-  height: 0;
+  /* height: 0;
   width: 0;
   border-left: solid transparent var(--btn-width);
   border-right: solid transparent var(--btn-width);
   border-top: solid #555 var(--btn-height);
-  background-color: #888;
+  background-color: #888; */
 }

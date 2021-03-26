@@ -71,12 +71,6 @@ function createBoard() {
 createBoard();
 squares[pacManCurrentIndex].classList.add('pac-man');
 
-/************ */
-// 39 is right arrow
-// 38 is up arrow
-// 37 is left arrow
-// 40 is down arrow
-/************ */
 
 function updateScore(pacManCurrentIndex) {
   //Hit a pac-dot
@@ -107,7 +101,7 @@ const powerPelletOn = function() {
 }
 
 const checkPacManMove = (moveToIndex, keyCode) => {  
-/*****Definitions to check cross-board move for PacMan**/
+  /*****Definitions to check cross-board move for PacMan**/
   if(moveToIndex === 364) {
     removePacMan();
     pacManCurrentIndex = 392;
@@ -118,14 +112,14 @@ const checkPacManMove = (moveToIndex, keyCode) => {
     pacManCurrentIndex = 363;
     return false;
   }
-/******Obsticle definitions (cannot move to)**/
+  /******Obsticle definitions (cannot move to)**/
   let obsticle = [
     squares[moveToIndex].classList.contains('wall'),
     squares[moveToIndex].classList.contains('ghost-lair'),
-    [moveToIndex % gridWidth === 27 && keyCode === 37],
-    [moveToIndex - gridHeight < 0 && keyCode === 38],
-    [moveToIndex % gridWidth === 1 && keyCode === 39],
-    [moveToIndex + gridHeight >= gridHeight && keyCode === 40]
+    [moveToIndex % gridWidth === 27 && keyCode === 'ArrowLeft'],
+    [moveToIndex - gridHeight < 0 && keyCode === 'ArrowUp'],
+    [moveToIndex % gridWidth === 1 && keyCode === 'ArrowRight'],
+    [moveToIndex + gridHeight >= gridHeight && keyCode === 'ArrowDown']
   ];
   return obsticle.includes(true);
 }
@@ -148,54 +142,63 @@ function removePacMan() {
 
 /***** Add PacMan to new location while transform look direction in travel */
 function addPacMan(degs) {
- squares[pacManCurrentIndex].classList.add('pac-man');
- const pacManObj = document.querySelector('.pac-man');
- squares[pacManCurrentIndex].style['transform'] = 'rotate('+degs+'deg)';
+  squares[pacManCurrentIndex].classList.add('pac-man');
+  const pacManObj = document.querySelector('.pac-man');
+  squares[pacManCurrentIndex].style['transform'] = 'rotate('+degs+'deg)';
 }
 
 /*****Section to move PacMan **/
-function control(event) {
-  switch (event.keyCode) {
-    case 39: 
-      if(!checkPacManMove(pacManCurrentIndex + 1, event.keyCode)) {
-          removePacMan();
-          pacManCurrentIndex += 1;
-          updateScore(pacManCurrentIndex);
-          addPacMan(0);
-        }
-      break;
-    case 38:
-      if(!checkPacManMove(pacManCurrentIndex - gridWidth, event.keyCode)) {
+function control(e) {
+  const key = (e.target.className.includes('fas'))? e.target.id: e.key;
+  switch (key) {
+    case 'ArrowRight': 
+    if(!checkPacManMove(pacManCurrentIndex + 1, key)) {
+      removePacMan();
+      pacManCurrentIndex += 1;
+      updateScore(pacManCurrentIndex);
+      addPacMan(0);
+    }
+    break;
+    case 'ArrowUp':
+      if(!checkPacManMove(pacManCurrentIndex - gridWidth, key)) {
         removePacMan();
         pacManCurrentIndex -= gridWidth;
         updateScore(pacManCurrentIndex);
         addPacMan(270);
       }
       break;
-    case 37:
-      if(!checkPacManMove(pacManCurrentIndex - 1, event.keyCode)) {
-        removePacMan();
-        pacManCurrentIndex -= 1;
-        updateScore(pacManCurrentIndex);
-        addPacMan(180);
+      case 'ArrowLeft':
+        if(!checkPacManMove(pacManCurrentIndex - 1, key)) {
+          removePacMan();
+          pacManCurrentIndex -= 1;
+          updateScore(pacManCurrentIndex);
+          addPacMan(180);
+        }
+        break;
+        case 'ArrowDown':
+          if(!checkPacManMove(pacManCurrentIndex + gridWidth, key)) {
+            removePacMan();
+            pacManCurrentIndex += gridWidth;
+            updateScore(pacManCurrentIndex);
+            addPacMan(90);
+          }
+          break;
+          default: break;
+        }
+        gameLooseCheck();
+        gameWinCheck();
       }
-      break;
-    case 40:
-      if(!checkPacManMove(pacManCurrentIndex + gridWidth, event.keyCode)) {
-        removePacMan();
-        pacManCurrentIndex += gridWidth;
-        updateScore(pacManCurrentIndex);
-        addPacMan(90);
-      }
-      break;
-    default: break;
-  }
-  gameLooseCheck();
-  gameWinCheck();
-}
 
-document.addEventListener('keyup', control);
-
+      /************ */
+      // 39 is right arrow
+      // 38 is up arrow
+      // 37 is left arrow
+      // 40 is down arrow
+      /************ */
+      
+      document.addEventListener('keydown', control);
+      document.querySelector('.btn-holder').addEventListener('mousedown', control);
+      
 /* Ghosts Section */
 class Ghost {
   constructor(className, startIndex, speed) {
@@ -298,7 +301,8 @@ function gameWinCheck() {
 
 function killGame(status, note) {
   ghosts.forEach((ghost) => clearInterval(ghost.timerId));
-  document.removeEventListener('keyup', control);
+  document.removeEventListener('keydown', control);
+  document.querySelector('.btn-holder').removeEventListener('mousedown', control);
   score.innerText = note;
 }
 //End PacMan
