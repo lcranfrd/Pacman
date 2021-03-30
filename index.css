@@ -1,7 +1,3 @@
-:root {
---btn-width: 1vh;
---btn-height: 2vh;
-}
 
 * {box-sizing: border-box;}
 
@@ -48,7 +44,6 @@ div {
   background-image: url('/images/Power_Pellet_Image.png');
   background-position: center;
   background-size: cover;
-  /* border-radius: 15px; */
 }
 
 .pac-man {
@@ -98,10 +93,8 @@ background-image: url('/images/Pinky-Trans.png');
 /* BUTTONS */
 .btn-holder {
   margin: auto;
-  /* padding: 5px; */
-  width: 25vh;
-  height: 25vh;
-  /* margin: 0 auto; */
+  width: 20vh;
+  height: 20vh;
   padding: 10 10;
   display: flex;
   flex-direction: column;
@@ -116,61 +109,7 @@ background-image: url('/images/Pinky-Trans.png');
 
 }
 
-.top {
-  /* padding: 5px 0 0 0; */
-}
-.middle {
-
-}
-.bottom {
-  /* padding: 5px 0 0 0; */
-}
-
-
 .space {
   width: 5vh;
   background-color: black;
-}
-.space.middle {
-  /* width: 2vh; */
-}
-.circle {
-  /* border: solid 5px #888;
-  border-radius: 100%; */
-}
-
-.btn-left {
-  /* height: 0;
-  width: 0;
-  border-top: solid transparent var(--btn-width);
-  border-bottom: solid transparent var(--btn-width);
-  border-right: solid #555 var(--btn-height);
-  background-color: #888; */
-}
-
-.btn-up {
-  /* height: 0;
-  width: 0;
-  border-left: solid transparent var(--btn-width);
-  border-right: solid transparent var(--btn-width);
-  border-bottom: solid #555 var(--btn-height);
-  background-color: #888; */
-}
-
-.btn-right {
-    /* height: 0;
-    width: 0;
-    border-top: solid transparent var(--btn-width);
-    border-bottom: solid transparent var(--btn-width);
-    border-left: solid #555 var(--btn-height);
-    background-color: #888; */
-}
-
-.btn-down {
-  /* height: 0;
-  width: 0;
-  border-left: solid transparent var(--btn-width);
-  border-right: solid transparent var(--btn-width);
-  border-top: solid #555 var(--btn-height);
-  background-color: #888; */
 }
