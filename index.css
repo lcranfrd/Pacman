@@ -45,35 +45,35 @@ div {
   background-color: blue;
 }
 .power-pellet {
-  background-image: url('../images/Power_Pellet_Image.png');
+  background-image: url('/images/Power_Pellet_Image.png');
   background-position: center;
   background-size: cover;
   /* border-radius: 15px; */
 }
 
 .pac-man {
-  background-image: url('../images/PacMan-Trans-2.png');
+  background-image: url('/images/PacMan-Trans-2.png');
   background-position: center;
   background-size: cover;
   border: none;
 }
 
 .blinky {
-  background-image: url('../images/Blinky-Trans.png');
+  background-image: url('/images/Blinky-Trans.png');
   background-position: center;
   background-size: contain;
   border: none;
 }
 
 .pinky {
-background-image: url('../images/Pinky-Trans.png');
+background-image: url('/images/Pinky-Trans.png');
   background-position: center;
   background-size: contain;
   border: none;
 }
 
 .inky {
-  background-image: url('../images/Inky-Trans.png');
+  background-image: url('/images/Inky-Trans.png');
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -81,7 +81,7 @@ background-image: url('../images/Pinky-Trans.png');
 }
 
 .clyde {
-  background-image: url('../images/Clyde-Trans.png');
+  background-image: url('/images/Clyde-Trans.png');
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -89,7 +89,7 @@ background-image: url('../images/Pinky-Trans.png');
 }
 
 .scared-ghost {
-  background-image: url('../images/scared-ghost.png');
+  background-image: url('/images/scared-ghost.png');
   background-position: center;
   background-size: cover;
   border: none;
