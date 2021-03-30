@@ -99,8 +99,8 @@ background-image: url('../images/Pinky-Trans.png');
 .btn-holder {
   margin: auto;
   /* padding: 5px; */
-  width: 75vh;
-  height: 75vh;
+  width: 25vh;
+  height: 25vh;
   /* margin: 0 auto; */
   padding: 10 10;
   display: flex;
