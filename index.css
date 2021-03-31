@@ -19,8 +19,8 @@ div {
 .grid {
   margin: auto;
   padding: 5px;
-  width: 75vh;
-  height: 75vh;
+  width: 70vh;
+  height: 70vh;
   display: flex;
   flex-wrap: wrap;
   border: 3px solid magenta;
@@ -95,21 +95,23 @@ background-image: url('../images/Pinky-Trans.png');
   margin: auto;
   width: 20vh;
   height: 20vh;
-  padding: 10 10;
+  padding: 1vh 1vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
   background-color: black;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-
+.btn-holder div {
+  width: 5vh;
+  height: 5vh;
 }
 
 .space {
   width: 5vh;
   background-color: black;
+}
+
+.fas {
+  : ;
 }
