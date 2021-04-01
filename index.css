@@ -41,13 +41,13 @@ div {
   background-color: blue;
 }
 .power-pellet {
-  background-image: url('../images/Power_Pellet_Image.png');
+  background-image: url('./images/Power_Pellet_Image.png');
   background-position: center;
   background-size: cover;
 }
 
 .pac-man {
-  background-image: url('../images/PacMan-Trans-2.png');
+  background-image: url('./images/PacMan-Trans-2.png');
   background-position: center;
   background-size: cover;
   border: none;
