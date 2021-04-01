@@ -3,7 +3,7 @@
 
 html, body {
   margin: 0 auto;
-  padding: 10px;
+  padding: 5px;
   background-color: black;
 }
 
@@ -29,13 +29,11 @@ div {
 .grid div {
   height: 3.5714%;
   width: 3.5714%;
-  /* border: 1px solid mediumturquoise; */
 }
 
 .pac-dot {
   background-color: green;
   border: 7px solid #222;
-  /* box-sizing: border-box; */
 }
 .wall {
   background-color: blue;
@@ -54,21 +52,21 @@ div {
 }
 
 .blinky {
-  background-image: url('../images/Blinky-Trans.png');
+  background-image: url('./images/Blinky-Trans.png');
   background-position: center;
   background-size: contain;
   border: none;
 }
 
 .pinky {
-background-image: url('../images/Pinky-Trans.png');
+background-image: url('./images/Pinky-Trans.png');
   background-position: center;
   background-size: contain;
   border: none;
 }
 
 .inky {
-  background-image: url('../images/Inky-Trans.png');
+  background-image: url('./images/Inky-Trans.png');
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -76,7 +74,7 @@ background-image: url('../images/Pinky-Trans.png');
 }
 
 .clyde {
-  background-image: url('../images/Clyde-Trans.png');
+  background-image: url('./images/Clyde-Trans.png');
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -84,7 +82,7 @@ background-image: url('../images/Pinky-Trans.png');
 }
 
 .scared-ghost {
-  background-image: url('../images/scared-ghost.png');
+  background-image: url('./images/scared-ghost.png');
   background-position: center;
   background-size: cover;
   border: none;
@@ -92,10 +90,9 @@ background-image: url('../images/Pinky-Trans.png');
 
 /* BUTTONS */
 .btn-holder {
-  margin: auto;
-  width: 20vh;
-  height: 20vh;
-  padding: 1vh 1vh;
+  margin: 10px auto 0 auto;
+  width: 12vh;
+  height: 12vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -103,15 +100,14 @@ background-image: url('../images/Pinky-Trans.png');
 }
 
 .btn-holder div {
-  width: 5vh;
-  height: 5vh;
+  margin: 0 auto;
+  width: 4vh;
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .space {
-  width: 5vh;
   background-color: black;
-}
-
-.fas {
-  : ;
 }

@@ -149,7 +149,7 @@ function addPacMan(degs) {
 
 /*****Section to move PacMan **/
 function control(e) {
-  const key = (e.target.className.includes('fas'))? e.target.id: e.key;
+  const key = (e.target.className.includes('far'))? e.target.id: e.key;
   switch (key) {
     case 'ArrowRight': 
     if(!checkPacManMove(pacManCurrentIndex + 1, key)) {
